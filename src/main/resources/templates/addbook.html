@@ -18,6 +18,12 @@
 	<input type="text" th:field="${book.isbn}" /></br>
 	<label>Price</label></br>
 	<input type="text" th:field="${book.price}" /></br></br>
+	<label for="catlist">Category: </label>
+			 <select id="catlist" class="form-control" name="category">
+       			<option value="1">Coding</option>
+       			<option value="2">Horror</option>
+       			<option value="3">Drama</option>
+    		</select></br></br>
 	<input type="submit" value="Submit" /> <input type="reset" value="Reset" />
 	</form>
 </body>

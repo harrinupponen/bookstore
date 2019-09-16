@@ -39,7 +39,7 @@ public class BookController {
 		@GetMapping(value = "/addbook")
 		public String getNewBookForm(Model model) {
 			model.addAttribute("book", new Book()); // empty book object
-			return "bookform";
+			return "addbook";
 		}
 
 		// receive and save data from the form
