@@ -1,6 +1,7 @@
 package hh.swd20.bookstore.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.swd20.bookstore.domain.Book;
 import hh.swd20.bookstore.domain.BookRepository;
+import hh.swd20.bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
+	
+	@Autowired
+	BookRepository bookRepository; 
+	
+	@Autowired
+	CategoryRepository categoryRepository; 
 	
 	@GetMapping("/index")
 	public String hello(Model model) {
@@ -23,17 +33,38 @@ public class BookController {
 		return "home";
 	}
 	
-	@Autowired
-	BookRepository bookRepository; 
+	
 	
 	//Listing all books
 	@GetMapping(value = "/booklist")
 	public String getAllBooks(Model model) {
 			List<Book> booklist =  (List<Book>) bookRepository.findAll(); // get books from the database
 			model.addAttribute("booklist", booklist); // booklist from the template to the Model
-			return "booklist"; // DispatherServlet gets the template name and calls the booklist.html
+			return "booklist"; // DispatcherServlet gets the template name and calls the booklist.html
 								// Will be generated on the server.
 	}
+	
+	// *****REST******
+	
+	// Fetch all
+	@GetMapping(value="/books")
+	public @ResponseBody List<Book> bookListRest() {
+		return (List<Book>) bookRepository.findAll();
+	}
+	
+	// Show one book by id
+	@GetMapping(value="/book/{id}")
+    public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {	
+    	return bookRepository.findById(bookId);
+    }
+	
+	// Add a new book
+    @PostMapping(value="/books")
+    public @ResponseBody Book saveBookRest(@RequestBody Book book) {	
+    	return bookRepository.save(book);
+    }
+    
+    //**************
 	
 	// empty form
 		@GetMapping(value = "/addbook")
@@ -56,7 +87,7 @@ public class BookController {
 			return "editbook";
 		}
 		
-		// edit and save book by id
+		// save book by id
 		@PostMapping(value ="/editbook")
 		public String editBookById(@ModelAttribute Book book) {
 			bookRepository.save(book);

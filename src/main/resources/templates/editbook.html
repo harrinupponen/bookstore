@@ -3,16 +3,22 @@
 <head>
     <title>Edit book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
 	<h1>Edit Book</h1>
 	<form action="#" th:action="@{/editbook}"  th:object= ${book} method="post">
 	<input type="hidden" th:field="${book.id}" />
-	<p>Title: <input type="text" th:field="${book.title}" /></p>
-	<p>Author: <input type="text" th:field="${book.author}" /></p>
-	<p>Year: <input type="text" th:field="${book.year}" /></p>
-	<p>ISBN: <input type="text" th:field="${book.isbn}" /></p>
-	<p>Price: <input type="text" th:field="${book.price}" /></p>
+	<label>Title</label></br>
+	<input type="text" th:field="${book.title}" /></br>
+	<label>Author</label></br>
+	<input type="text" th:field="${book.author}" /></br>
+	<label>Year</label></br>
+	<input type="text" th:field="${book.year}" /></br>
+	<label>ISBN</label></br>
+	<input type="text" th:field="${book.isbn}" /></br>
+	<label>Price</label></br>
+	<input type="text" th:field="${book.price}" /></br></br>
 	<label for="catlist">Category: </label>
 			 <select id="catlist" class="form-control" name="category">
        			<option value="1">Coding</option>

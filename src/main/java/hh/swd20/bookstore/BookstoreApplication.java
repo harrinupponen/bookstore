@@ -25,12 +25,22 @@ public class BookstoreApplication {
 	public CommandLineRunner bookDemo(BookRepository bookRepository, CategoryRepository categoryRepository) { 
 		return (args) -> {
 			log.info("save a couple of books");
-			categoryRepository.save(new Category("Coding"));
-			categoryRepository.save(new Category("Horror"));
-			categoryRepository.save(new Category("Drama"));
+			Category coding = new Category("Coding");
+			categoryRepository.save(coding);
 			
-			bookRepository.save(new Book("Learn to code", "Carl Codemaster", 2015, "123-456-789", 34.00, categoryRepository.findByName("Coding").get(0)));
-			bookRepository.save(new Book("The ghost of Haaga-Helia", "Peter Whitesheet", 2018, "456-789-123", 52.00, categoryRepository.findByName("Horror").get(0)));	
+			//categoryRepository.save(new Category("Horror")); **DIFFERENT STYLE**
+			Category horror = new Category("Horror");
+			categoryRepository.save(horror);
+			
+			Category drama = new Category("Drama");
+			categoryRepository.save(drama);
+			
+			bookRepository.save(new Book("Learn to code", "Carl Codemaster", 2015, "123-456-789", 34.00, coding));
+			bookRepository.save(new Book("The ghost of Haaga-Helia", "Peter Whitesheet", 2018, "456-789-123", 52.00, horror));
+			
+			// **DIFFERENT STYLE** 
+			//bookRepository.save(new Book("The ghost of Haaga-Helia", "Peter Whitesheet", 2018, "456-789-123", 52.00, 
+			//categoryRepository.findByName("Horror").get(0)));	
 			
 			log.info("fetch all books");
 			for (Book book : bookRepository.findAll()) {
