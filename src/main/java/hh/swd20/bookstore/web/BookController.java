@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.swd20.bookstore.domain.Book;
@@ -24,7 +25,13 @@ public class BookController {
 	BookRepository bookRepository; 
 	
 	@Autowired
-	CategoryRepository categoryRepository; 
+	CategoryRepository categoryRepository;
+	
+	// Show login form
+    @RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }
 	
 	@GetMapping("/index")
 	public String hello(Model model) {
@@ -32,7 +39,6 @@ public class BookController {
 		model.addAttribute("greeting", greeting);
 		return "home";
 	}
-	
 	
 	
 	//Listing all books

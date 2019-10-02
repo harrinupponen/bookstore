@@ -42,6 +42,9 @@ public class BookstoreApplication {
 			//bookRepository.save(new Book("The ghost of Haaga-Helia", "Peter Whitesheet", 2018, "456-789-123", 52.00, 
 			//categoryRepository.findByName("Horror").get(0)));	
 			
+			// create users
+			
+			
 			log.info("fetch all books");
 			for (Book book : bookRepository.findAll()) {
 				log.info(book.toString());
