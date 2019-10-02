@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,18 +54,21 @@ public class BookController {
 	// *****REST******
 	
 	// Fetch all
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping(value="/books")
 	public @ResponseBody List<Book> bookListRest() {
 		return (List<Book>) bookRepository.findAll();
 	}
 	
 	// Show one book by id
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping(value="/book/{id}")
     public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId) {	
     	return bookRepository.findById(bookId);
     }
 	
 	// Add a new book
+	@PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value="/books")
     public @ResponseBody Book saveBookRest(@RequestBody Book book) {	
     	return bookRepository.save(book);
@@ -73,9 +77,11 @@ public class BookController {
     //**************
 	
 	// empty form
+    	@PreAuthorize("hasAuthority('ADMIN')")
 		@GetMapping(value = "/addbook")
 		public String getNewBookForm(Model model) {
 			model.addAttribute("book", new Book()); // empty book object
+			model.addAttribute("categories", categoryRepository.findAll());
 			return "addbook";
 		}
 
@@ -87,6 +93,7 @@ public class BookController {
 		}
 		
 		// find book by id
+		@PreAuthorize("hasAuthority('ADMIN')")
 		@GetMapping(value="/editbook/{id}")
 		public String findBookById(@PathVariable("id") Long bookId, Model model) {
 			model.addAttribute("book", bookRepository.findById(bookId));
@@ -101,6 +108,7 @@ public class BookController {
 		}
 		
 		// delete book
+		@PreAuthorize("hasAuthority('ADMIN')")
 		@GetMapping(value = "/deletebook/{id}")
 		public String deleteBook(@PathVariable("id") Long bookId) {
 			bookRepository.deleteById(bookId);

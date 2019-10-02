@@ -62,8 +62,10 @@ form {
 	text-decoration: none;
 }
 .signout_btn {
+	float: right;
 	background: red;
 	padding: 10px;
+	margin: 20px;
 	border-radius: 5px;
 	text-align: center;
 }
