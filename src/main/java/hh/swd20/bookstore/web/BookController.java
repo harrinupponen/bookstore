@@ -34,7 +34,7 @@ public class BookController {
         return "login";
     }
 	
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String hello(Model model) {
 		String greeting = "Hello Bookstore!";
 		model.addAttribute("greeting", greeting);
